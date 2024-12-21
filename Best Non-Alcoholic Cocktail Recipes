@@ -1,0 +1,133 @@
+import 'package:flutter/material.dart';
+
+class Cocktail {
+  final String name;
+  final String ingredients;
+  final String instructions;
+
+  Cocktail({required this.name, required this.ingredients, required this.instructions});
+}
+
+List<Cocktail> cocktailList = [
+  Cocktail(
+    name: 'Non-Alcoholic Mojito',
+    ingredients: 'Lime, mint, sugar, soda water',
+    instructions: '1. Cut the lime. 2. Mix with mint and sugar. 3. Add soda water.',
+  ),
+  Cocktail(
+    name: 'Non-Alcoholic Pina Colada',
+    ingredients: 'Coconut milk, pineapple juice, ice',
+    instructions: '1. Mix coconut milk and pineapple juice. 2. Add ice and blend.',
+  ),
+  Cocktail(
+    name: 'Strawberry Lemonade',
+    ingredients: 'Strawberries, lemon, sugar, water',
+    instructions: '1. Puree strawberries. 2. Mix with lemon juice and water. 3. Chill.',
+  ),
+  Cocktail(
+    name: 'Watermelon Smoothie',
+    ingredients: 'Watermelon, yogurt, ice',
+    instructions: '1. Cut the watermelon. 2. Blend watermelon with yogurt and ice.',
+  ),
+  Cocktail(
+    name: 'Non-Alcoholic Sangria',
+    ingredients: 'Water, orange, lemon, pear',
+    instructions: '1. Chop the fruits. 2. Add to water and let sit overnight.',
+  ),
+  Cocktail(
+    name: 'Banana Milkshake',
+    ingredients: 'Banana, milk, sugar',
+    instructions: '1. Blend all ingredients until smooth.',
+  ),
+  Cocktail(
+    name: 'Pineapple Cocktail',
+    ingredients: 'Pineapple, coconut milk, ice',
+    instructions: '1. Blend all ingredients and serve.',
+  ),
+  Cocktail(
+    name: 'Pomegranate Cocktail',
+    ingredients: 'Pomegranate, lemon, honey, water',
+    instructions: '1. Squeeze pomegranate and lemon juice. 2. Add honey and water. Mix.',
+  ),
+  Cocktail(
+    name: 'Green Cocktail',
+    ingredients: 'Spinach, apple, lemon juice',
+    instructions: '1. Blend all ingredients together.',
+  ),
+  Cocktail(
+    name: 'Berry Milkshake',
+    ingredients: 'Berries, milk, sugar',
+    instructions: '1. Blend berries with milk and sugar.',
+  ),
+  Cocktail(
+    name: 'Coconut Lemon Cocktail',
+    ingredients: 'Coconut milk, lemon juice, ice',
+    instructions: '1. Blend coconut milk with lemon juice and ice.',
+  ),
+];
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Best Non-Alcoholic Cocktail Recipes',
+      home: CocktailListScreen(),
+    );
+  }
+}
+
+class CocktailListScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Cocktail Catalog')),
+      body: ListView.builder(
+        itemCount: cocktailList.length,
+        itemBuilder: (context, index) {
+          return Card(
+            margin: EdgeInsets.all(10.0),
+            child: ListTile(
+              title: Text(cocktailList[index].name),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CocktailDetailScreen(cocktail: cocktailList[index]),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class CocktailDetailScreen extends StatelessWidget {
+  final Cocktail cocktail;
+
+  CocktailDetailScreen({required this.cocktail});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(cocktail.name)),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Ingredients: ${cocktail.ingredients}'),
+            SizedBox(height: 10),
+            Text('Instructions: ${cocktail.instructions}'),
+          ],
+        ),
+      ),
+    );
+  }
+}
